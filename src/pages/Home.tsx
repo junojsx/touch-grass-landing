@@ -3,7 +3,7 @@ import card2 from '../assets/card-2.svg';
 import card3 from '../assets/card-3.svg';
 import badgeAppStore from '../assets/badge-app-store.svg';
 import badgeGooglePlay from '../assets/badge-google-play.svg';
-import badgeApk from '../assets/badge-apk.svg';
+
 
 export default function Home() {
   return (
@@ -40,9 +40,7 @@ export default function Home() {
               <a className="storeBadge" href="#" aria-label="Download on the App Store (dummy link)">
                 <img src={badgeAppStore} alt="" />
               </a>
-              <a className="storeBadge storeBadge--small" href="#" aria-label="Download APK (dummy link)">
-                <img src={badgeApk} alt="" />
-              </a>
+             
             </div>
           </div>
 

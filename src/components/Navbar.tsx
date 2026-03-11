@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
@@ -10,6 +11,21 @@ const navItems = [
 export default function Navbar() {
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const current = document.documentElement.dataset.theme;
+    return current === 'dark' ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem('tg-theme', theme);
+  }, [theme]);
+
+  const themeLabel = useMemo(
+    () => (theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'),
+    [theme]
+  );
+
   return (
     <header className="navbar">
       <nav className="navbar__inner">
@@ -36,9 +52,20 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <a className="navLogin" href="#" aria-label="Download Touch Grass (dummy link)">
-          Download
-        </a>
+        <div className="navActions" aria-label="Actions">
+          <button
+            type="button"
+            className="navIconButton"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            aria-label={themeLabel}
+            title={themeLabel}
+          >
+            <span aria-hidden="true">{theme === 'dark' ? '☀︎' : '☾'}</span>
+          </button>
+          <a className="navLogin" href="#" aria-label="Download Touch Grass (dummy link)">
+            Download
+          </a>
+        </div>
       </nav>
     </header>
   );
